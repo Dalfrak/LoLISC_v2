@@ -96,8 +96,8 @@ router.get('/', (req, res) => {
     if (!updating) {
         updating = true;
         fs.writeFileSync('./resources/lol_patch.json', JSON.stringify({ data: patch }));
-        // updateTarballFile(patch);
-        // decompressTarball(patch);
+        updateTarballFile(patch);
+        decompressTarball(patch);
         calculate.calculateEfficiency(patch)
     }
     res.statusCode = 302;
