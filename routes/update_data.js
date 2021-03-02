@@ -60,10 +60,10 @@ function decompressTarball(patch) {
     const file_path = path.resolve(__dirname, '../resources', 'last_lol_data.tgz');
     const dest_path = path.resolve(__dirname, '../resources/last_lol_data');
 
-    const img_path = path.resolve(__dirname, `../last_lol_data/${patch}/img/item`);
+    const img_path = path.resolve(__dirname, `../resources/last_lol_data/${patch}/img/item`);
     const img_dest_path = path.resolve(__dirname, '../public/img/item');
 
-    const maps_path = path.resolve(__dirname, `../last_lol_data/${patch}/img/maps`);
+    const maps_path = path.resolve(__dirname, `../resources/last_lol_data/${patch}/img/maps`);
     const maps_dest_path = path.resolve(__dirname, '../public/img/maps');
 
     console.log('\tRemoving existing patch files ...');
@@ -100,8 +100,6 @@ router.get('/', (req, res) => {
         updating = true;
         fs.writeFileSync('./resources/lol_patch.json', JSON.stringify({ data: patch }));
         updateTarballFile(patch);
-        decompressTarball(patch);
-        calculate.calculateEfficiency(patch)
     }
     res.statusCode = 302;
     res.setHeader('Location', '/');
