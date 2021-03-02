@@ -3,6 +3,7 @@ const axios = require('axios');
 const path = require('path');
 const tar = require('tar');
 const fs = require('fs');
+const fse = require('fs-extra');
 
 const calculate = require('../resources/calculate_efficiency.js')
 
@@ -72,8 +73,8 @@ function decompressTarball(patch) {
 
     console.log('\tCreating destination directory ...');
     fs.mkdir(dest_path, (err) => { if (err) throw err; });
-    fs.mkdir(img_dest_path, (err) => { if (err) throw err; });
-    fs.mkdir(maps_dest_path, (err) => { if (err) throw err; });
+    // fs.mkdir(img_dest_path, (err) => { if (err) throw err; });
+    // fs.mkdir(maps_dest_path, (err) => { if (err) throw err; });
 
     console.log('\tDecompressing ...');
     tar.extract({ file: file_path, C: dest_path, newer: true })
@@ -81,9 +82,11 @@ function decompressTarball(patch) {
             console.log('Tarball Decompressed!');
             console.log('Moving directories ...');
             console.log('Images ...');
-            fs.move(img_path, img_dest_path, (err) => { if (err) throw err });
+            fse.moveSync(img_path, img_dest_path, { overwrite: true }, (err) => { if (err) throw err });
+            // fs.copyFileSync(img_path, img_dest_path);
             console.log('Maps ...');
-            fs.move(img_path, img_dest_path, (err) => { if (err) throw err });
+            fse.moveSync(maps_path, maps_dest_path, { overwrite: true }, (err) => { if (err) throw err });
+            // fs.copyFileSync(maps_path, maps_dest_path);
             console.log('... Directories moved successfully!');
             updating = false;
             calculate.calculateEfficiency(patch)
