@@ -6,6 +6,9 @@ block layout-content
     $(function () { $('body').css('background-image', 'url("img/splash/'+'#{bg}'+'")'); });
     
   div#informations Game Patch - #{patch}
+    br
+    a(target='_blank' href=`https://euw.leagueoflegends.com/en-gb/news/game-updates/patch-${patch.split('.')[0]}-${patch.split('.')[1]}-notes/`)
+      span Patch notes
   div#content
     div#item_table
       each cat in itemStats
