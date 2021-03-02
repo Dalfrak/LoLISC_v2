@@ -58,11 +58,8 @@ function getItemPriceFromStats(item, baseStatsPrice) {
             return parseFloat(itemPrice).toFixed(2);
         } else return itemPrice;
     } catch (error) {
-        // console.error('Error on parsing ' + item.name + ' stats');
-        // console.error(error);
         return itemPrice;
     }
-    return itemPrice;
 }
 
 function calculateGoldEfficiency(item, baseStatsPrice) {
@@ -115,7 +112,6 @@ function calculateEfficiency(patch) {
             const s = itemsStatistics.push({ cat: itemTmp.categoryName });
             cat = itemsStatistics[s - 1];
         }
-        // console.log(cat);
         if (cat.itemList)
             cat.itemList.push(itemTmp);
         else cat.itemList = [itemTmp];

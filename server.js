@@ -1,5 +1,3 @@
-// index.js
-
 /**
  * Required External Modules
  */
@@ -37,7 +35,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
     const link = 'https://ddragon.leagueoflegends.com/api/versions.json';
-    // var t = true;
     var lolPatch;
     try {
         lolPatch = JSON.parse(fs.readFileSync('./resources/lol_patch.json', 'utf8'));
