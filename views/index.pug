@@ -1,6 +1,10 @@
 extends layout
 
 block layout-content
+  
+  script.
+    $(function () { $('body').css('background-image', 'url("img/splash/'+'#{bg}'+'")'); });
+    
   div#informations Game Patch - #{patch}
   div#content
     div#item_table
@@ -13,7 +17,7 @@ block layout-content
               th
               th(class='sortable item_gold_efficiency') Gold Efficiency
               th(class='sortable item_gold_equivalent') Equivalent in golds
-              th Maps
+              th(class='item_supported_maps') Maps
             each it in cat.itemList
               tr(id=it.categoryTitle class='item_stats')
                 td(class='item_img')

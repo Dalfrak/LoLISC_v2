@@ -6,12 +6,8 @@ function importItemStats() {
 }
 
 function getRandomBG() {
-    const dirPath = path.resolve(__dirname, '../public/img/splash');
-    fs.readdir(dirPath, (err, files) => {
-        if (err) throw err
-        // console.log(files[Math.floor(Math.random() * files.length)]);
-        return files[Math.floor(Math.random() * files.length)];
-    });
+    files = fs.readdirSync(path.resolve(__dirname, '../public/img/splash'));
+    return files[Math.floor(Math.random() * files.length)];
 }
 
 module.exports = { importItemStats, getRandomBG };

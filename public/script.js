@@ -1,20 +1,19 @@
-$(document).ready(function () {
-    console.log($('.item_img'));
-    $('.category.title').hover(function () {
+$(function () {
+
+    $('.category.title').hover(function () { // TODO: deprecated
         $(this).toggleClass('hover');
     });
 
-    $('.category.title').click(function () {
+    $('.category.title').click(function () { // TODO: deprecated
         $(this).next('.collapsible').css('display', ($(this).next().css('display') == 'none') ? 'table' : 'none');
         $(this).toggleClass('hidden');
     });
 
     let showTooltip = function (evt) {
-        console.log('Yolo');
         $('div.tooltip').remove();
         $elem = $('<div class="tooltip">' + $(this).children().last().html() + '</div>').appendTo('body');
-        var tooltipX = event.pageX;
-        var tooltipY = event.pageY;
+        var tooltipX = event.pageX; // TODO: deprecated
+        var tooltipY = event.pageY; // TODO: deprecated
         height = $('div.tooltip').height();
         bottomScreenBorder = $('body').outerHeight();
         tooltipY = (tooltipY + height >= bottomScreenBorder) ? tooltipY - height : tooltipY;
@@ -25,12 +24,12 @@ $(document).ready(function () {
         $('div.tooltip').remove();
     };
 
-    $('.item_img').bind({
+    $('.item_img').bind({ // TODO: deprecated
         mouseenter: showTooltip,
         mouseleave: hideTooltip
     });
 
-    $('th.sortable').click(function (evt) {
+    $('th.sortable').click(function (evt) { // TODO: deprecated
         let $tableElem, $rows, switching, i, x, y, shouldSwitch;
         let order = (a, b) => ($(this).hasClass('ascendant')) ? a < b : a > b;
         $tableElem = $(this).parent().parent().parent();

@@ -117,6 +117,10 @@ table th {
 	margin-left: 0.3em;
 }
 
+.item_supported_maps {
+	text-align: center;
+}
+
 .hidden_tooltip {
 	display: none;
 }
