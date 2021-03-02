@@ -114,3 +114,7 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+#custom
+resources/last_lol_data
+resources/lol_patch.json
