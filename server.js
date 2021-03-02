@@ -19,12 +19,12 @@ const calculate = require('./resources/calculate_efficiency.js')
  */
 
 const app = express();
-const port = process.env.port || '8000';
 
 /**
  *  App Configuration
  */
 
+app.set('port', (process.env.PORT || 8000));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
@@ -68,6 +68,6 @@ app.use('/update', update);
  * Server Activation
  */
 
-app.listen(port, () => {
-    console.log(`Listening on port ${port}`);
+app.listen(app.get('port'), () => {
+    console.log(`Listening on port ${app.get('port')}`);
 });
