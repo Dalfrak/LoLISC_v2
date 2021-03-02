@@ -120,3 +120,4 @@ resources/last_lol_data
 resources/lol_patch.json
 resources/item_stats.json
 bs-config.js
+public/img

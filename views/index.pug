@@ -1,7 +1,6 @@
 extends layout
 
 block layout-content
-  //- - const itSt = JSON.parse(itemLists);
   div#informations Game Patch - #{patch}
   div#content
     div#item_table
@@ -33,6 +32,9 @@ block layout-content
                 td(class='item_gold_efficiency')= it.goldEfficiency + '%'
                 td(class='item_gold_equivalent')= it.equivalentInGolds
                   img(src='https://static.wikia.nocookie.net/leagueoflegends/images/1/10/Gold.png' width='20' height='15')
-                //- td(class='item_supported_maps')
-                //-   span TODO: ...
+                td(class='item_supported_maps')
+                  span 
+                    for m, k in it.maps
+                      if (m == true)
+                        img(src=`img/maps/map${k}.png` width="32" height="32")
   script(language='javascript' src='/script.js')
