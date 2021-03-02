@@ -10,7 +10,7 @@ const path = require('path');
 const fs = require('fs');
 
 const update = require('./routes/update_data');
-const calculate = require('./resources/calculate_efficiency.js')
+const helper = require('./resources/helper');
 
 /**
  * App Variables
@@ -52,7 +52,12 @@ app.get('/', (req, res) => {
             } else {
                 console.log('Patch is OK!');
                 res.cookie('patch', response.data[0]);
-                res.render('index', { title: 'Home', patch: response.data[0], itemStats: calculate.importItemStats() });
+                res.render('index', {
+                    title: 'Home',
+                    patch: response.data[0],
+                    itemStats: helper.importItemStats(),
+                    bg: helper.getRandomBG()
+                });
             }
         })
         .catch(error => {

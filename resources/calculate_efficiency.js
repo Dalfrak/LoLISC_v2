@@ -119,7 +119,4 @@ function calculateEfficiency(patch) {
     saveData(itemsStatistics);
 }
 
-function importItemStats() {
-    return JSON.parse(fs.readFileSync('./resources/item_stats.json', 'utf8'));
-}
-module.exports = { calculateEfficiency, importItemStats };
+module.exports = { calculateEfficiency };

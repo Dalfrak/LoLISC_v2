@@ -39,7 +39,7 @@ function updateTarballFile(patch) {
 
     axios.get(link(patch), { responseType: 'stream' })
         .then(response => {
-            console.log('Tarball downloaded!\nSaving ...');
+            console.log('Tarball acquired!\nSaving ...');
             response.data.pipe(writer);
 
             writer.on('finish', () => {
@@ -56,7 +56,7 @@ function updateTarballFile(patch) {
 }
 
 function decompressTarball(patch) {
-    console.log('Decompressing Tarball ...');
+    console.log('Processing Tarball ...');
     const file_path = path.resolve(__dirname, '../resources', 'last_lol_data.tgz');
     const dest_path = path.resolve(__dirname, '../resources/last_lol_data');
 
@@ -66,10 +66,14 @@ function decompressTarball(patch) {
     const maps_path = path.resolve(__dirname, `../resources/last_lol_data/${patch}/img/map`);
     const maps_dest_path = path.resolve(__dirname, '../public/img/maps');
 
+    const bg_path = path.resolve(__dirname, `../resources/last_lol_data/img/champion/splash`);
+    const bg_dest_path = path.resolve(__dirname, '../public/img/splash');
+
     console.log('\tRemoving existing patch files ...');
     removeDir(dest_path);
     removeDir(img_dest_path);
     removeDir(maps_dest_path);
+    removeDir(bg_dest_path);
 
     console.log('\tCreating destination directory ...');
     fs.mkdir(dest_path, (err) => { if (err) throw err; });
@@ -79,11 +83,13 @@ function decompressTarball(patch) {
         .then(_ => {
             console.log('Tarball Decompressed!');
             console.log('Moving directories ...');
-            console.log('Images ...');
-            fse.moveSync(img_path, img_dest_path, { overwrite: true }, (err) => { if (err) throw err });
-            console.log('Maps ...');
-            fse.moveSync(maps_path, maps_dest_path, { overwrite: true }, (err) => { if (err) throw err });
-            console.log('... Directories moved successfully!');
+            console.log('\tImages ...');
+            fse.moveSync(img_path, img_dest_path, { overwrite: false }, (err) => { if (err) throw err });
+            console.log('\tMaps ...');
+            fse.moveSync(maps_path, maps_dest_path, { overwrite: false }, (err) => { if (err) throw err });
+            console.log('\tSplashes ...');
+            fse.moveSync(bg_path, bg_dest_path, { overwrite: false }, (err) => { if (err) throw err });
+            console.log('... Directories successfully moved!\tUpdate done!');
             updating = false;
             calculate.calculateEfficiency(patch)
         })
