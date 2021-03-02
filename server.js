@@ -37,10 +37,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
     const link = 'https://ddragon.leagueoflegends.com/api/versions.json';
-    const lolPatch = JSON.parse(fs.readFileSync('./resources/lol_patch.json', 'utf8'));
+    var t = true;
+    try {
+        const lolPatch = JSON.parse(fs.readFileSync('./resources/lol_patch.json', 'utf8'));
+    } catch (err) {
+        t = false;
+    }
     axios.get(link)
         .then(response => {
-            if (response.data[0] != lolPatch.data) {
+            if (!t || response.data[0] != lolPatch.data) {
                 console.log('Patch is outdated, starting update!');
                 res.statusCode = 302;
                 res.cookie('patch', response.data[0]);
