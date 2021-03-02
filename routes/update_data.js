@@ -63,7 +63,7 @@ function decompressTarball(patch) {
     const img_path = path.resolve(__dirname, `../resources/last_lol_data/${patch}/img/item`);
     const img_dest_path = path.resolve(__dirname, '../public/img/item');
 
-    const maps_path = path.resolve(__dirname, `../resources/last_lol_data/${patch}/img/maps`);
+    const maps_path = path.resolve(__dirname, `../resources/last_lol_data/${patch}/img/map`);
     const maps_dest_path = path.resolve(__dirname, '../public/img/maps');
 
     console.log('\tRemoving existing patch files ...');
