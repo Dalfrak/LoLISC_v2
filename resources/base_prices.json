@@ -1,0 +1,109 @@
+{
+    "data": [
+        {
+            "mainName": "Move Speed",
+            "value": 12,
+            "isPercentage": false
+        },
+        {
+            "mainName": "Mana",
+            "value": 1.4,
+            "isPercentage": false
+        },
+        {
+            "mainName": "Health",
+            "value": 2.66666667,
+            "isPercentage": false
+        },
+        {
+            "mainName": "Armor",
+            "value": 20,
+            "isPercentage": false
+        },
+        {
+            "mainName": "Magic Resist",
+            "value": 18,
+            "isPercentage": false
+        },
+        {
+            "mainName": "Attack Damage",
+            "value": 35,
+            "isPercentage": false
+        },
+        {
+            "mainName": "Ability Power",
+            "value": 21.75,
+            "isPercentage": false
+        },
+        {
+            "mainName": "Magic Penetration",
+            "value": 31.1111111,
+            "isPercentage": false
+        },
+        {
+            "mainName": "Ability Haste",
+            "value": 26.6666667,
+            "isPercentage": false
+        },
+        {
+            "mainName": "Lethality",
+            "value": 5,
+            "isPercentage": false
+        },
+        {
+            "mainName": "Omnivamp",
+            "value": 39.6666667,
+            "isPercentage": true
+        },
+        {
+            "mainName": "Heal and Shield Power",
+            "value": 55,
+            "isPercentage": true
+        },
+        {
+            "mainName": "Move Speed",
+            "value": 39.5,
+            "isPercentage": true
+        },
+        {
+            "mainName": "Critical Strike Chance",
+            "value": 40,
+            "isPercentage": true
+        },
+        {
+            "mainName": "Armor Penetration",
+            "value": 37.5,
+            "isPercentage": true
+        },
+        {
+            "mainName": "Magic Penetration",
+            "value": 47.08,
+            "isPercentage": true
+        },
+        {
+            "mainName": "Life Steal",
+            "value": 37.5,
+            "isPercentage": true
+        },
+        {
+            "mainName": "Base Mana Regen",
+            "value": 5,
+            "isPercentage": true
+        },
+        {
+            "mainName": "Base Health Regen",
+            "value": 3,
+            "isPercentage": true
+        },
+        {
+            "mainName": "Attack Speed",
+            "value": 25,
+            "isPercentage": true
+        },
+        {
+            "mainName": "Tenacity",
+            "value": 0,
+            "isPercentage": true
+        }
+    ]
+}

@@ -1,0 +1,38 @@
+extends layout
+
+block layout-content
+  //- - const itSt = JSON.parse(itemLists);
+  div#informations Game Patch - #{patch}
+  div#content
+    div#item_table
+      each cat in itemStats
+        h3(class='category title')= cat.itemList[0].categoryTitle
+        table(id=cat.cat class='category collapsible')
+          tbody
+            tr
+              th
+              th
+              th(class='sortable item_gold_efficiency') Gold Efficiency
+              th(class='sortable item_gold_equivalent') Equivalent in golds
+              th Maps
+            each it in cat.itemList
+              tr(id=it.categoryTitle class='item_stats')
+                td(class='item_img')
+                  a(target='_blank' href=it.wikiLink)
+                    img(src=it.itemImgLink width='32' height='32')
+                  div(class='hidden_tooltip' price=it.price)
+                    div(class='item_tooltip_header')
+                      img(src=it.itemImgLink width='64' height='64')
+                      div
+                        div(class='item_name')= it.itemName
+                        br
+                        span= it.price
+                          img(src='https://static.wikia.nocookie.net/leagueoflegends/images/1/10/Gold.png' width='20' height='15')
+                    p !{it.desc}
+                td(class='item_name')= it.itemName
+                td(class='item_gold_efficiency')= it.goldEfficiency + '%'
+                td(class='item_gold_equivalent')= it.equivalentInGolds
+                  img(src='https://static.wikia.nocookie.net/leagueoflegends/images/1/10/Gold.png' width='20' height='15')
+                //- td(class='item_supported_maps')
+                //-   span TODO: ...
+  script(language='javascript' src='/script.js')
