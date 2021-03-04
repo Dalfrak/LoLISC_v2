@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
-function importItemStats() {
-    return JSON.parse(fs.readFileSync('./resources/item_stats.json', 'utf8'));
+function importJSONStats(filename) {
+    return JSON.parse(fs.readFileSync(`./resources/${filename}.json`, 'utf8'));
 }
 
 function getRandomBG() {
@@ -10,5 +10,5 @@ function getRandomBG() {
     return files[Math.floor(Math.random() * files.length)];
 }
 
-module.exports = { importItemStats, getRandomBG };
+module.exports = { importJSONStats, getRandomBG };
 

@@ -12,7 +12,7 @@ block layout-content
         strong here
   div#content
     div#item_table
-      each cat in itemStats
+      each cat in lastStats
         h3(class='category title')= cat.itemList[0].categoryTitle
         table(id=cat.cat class='category collapsible')
           tbody

@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const fse = require('fs-extra');
 
 function determineItemType(item) {
     // Set
@@ -40,11 +41,11 @@ function determineItemType(item) {
 }
 
 function getItemPriceFromStats(item, baseStatsPrice) {
-    itemPrice = 0;
+    let itemPrice = 0;
     try {
         let test = item.description.split('</stats>')[0].split('<stats>')[1];
         if (test) {
-            testSplitted = test.split('<br>');
+            const testSplitted = test.split('<br>');
             for (const statLineNb in testSplitted) {
 
                 const tmp = testSplitted[statLineNb].split('</attention>');
@@ -52,7 +53,7 @@ function getItemPriceFromStats(item, baseStatsPrice) {
                 const isPercentage = statValue.substr(-1) == '%';
                 const statName = tmp[1].trim();
 
-                correspondingBaseStat = baseStatsPrice.data.find(o => o.mainName == statName && o.isPercentage == isPercentage);
+                const correspondingBaseStat = baseStatsPrice.data.find(o => o.mainName == statName && o.isPercentage == isPercentage);
                 itemPrice += correspondingBaseStat.value * parseFloat(statValue);
             }
             return parseFloat(itemPrice).toFixed(2);
@@ -63,18 +64,17 @@ function getItemPriceFromStats(item, baseStatsPrice) {
 }
 
 function calculateGoldEfficiency(item, baseStatsPrice) {
-    let totalStCost = getItemPriceFromStats(item, baseStatsPrice);
-
-    let GE = totalStCost / item.gold.total;
-    let res01 = (Math.round(GE * 100 * 100)) / 100;
-    let res02 = -Math.round((item.gold.total - item.gold.total * GE) * 100) / 100;
-
-    let res = { itemGoldEfficiency: isNaN(res01) ? 0 : res01, itemGoldEq: isNaN(res02) ? 0 : res02 };
-    return res;
+    const totalStCost = getItemPriceFromStats(item, baseStatsPrice);
+    const GE = totalStCost / item.gold.total;
+    const res01 = (Math.round(GE * 100 * 100)) / 100;
+    const res02 = -Math.round((item.gold.total - item.gold.total * GE) * 100) / 100;
+    return { itemGoldEfficiency: isNaN(res01) ? 0 : res01, itemGoldEq: isNaN(res02) ? 0 : res02 };
 }
 
 function saveData(itemsStats) {
-    fs.writeFileSync('./resources/item_stats.json', JSON.stringify(itemsStats), 'utf8');
+    const file = './resources/item_stats.json';
+    if (fs.existsSync(file)) fse.moveSync(file, './resources/previous_stats.json', { overwrite: true });
+    fs.writeFileSync(file, JSON.stringify(itemsStats), 'utf8');
     console.log('File Saved!');
 }
 
@@ -90,30 +90,28 @@ function calculateEfficiency(patch) {
     for (const key in items) {
 
         const item = items[key];
+        const res = determineItemType(item);
+        const tmp = calculateGoldEfficiency(item, baseStatsPrice);
 
-        let itemTmp = {};
-        res = determineItemType(item);
-        itemTmp.categoryName = res[0];
-        itemTmp.categoryTitle = res[1];
+        itemTmp = {
+            categoryName: res[0],
+            categoryTitle: res[1],
+            itemName: item.name,
+            price: item.gold.total,
+            desc: item.description,
+            maps: item.maps,
+            goldEfficiency: tmp.itemGoldEfficiency,
+            equivalentInGolds: tmp.itemGoldEq,
+            previousEfficiency: 0, // TODO
+            previousGolds: 0, // TODO
+            itemImgLink: `/img/item/${item.image.full}`,
+            wikiLink: `https://leagueoflegends.fandom.com/wiki/${item.name.replace(/\s+/g, '_').replace(/'/g, '%27')}`
+        };
 
-        let tmp = calculateGoldEfficiency(item, baseStatsPrice);
+        let cat = itemsStatistics.find(o => o.cat === itemTmp.categoryName)
 
-        itemTmp.itemName = item.name;
-        itemTmp.price = item.gold.total;
-        itemTmp.desc = item.description;
-        itemTmp.maps = item.maps;
-        itemTmp.goldEfficiency = tmp.itemGoldEfficiency;
-        itemTmp.equivalentInGolds = tmp.itemGoldEq;
-        itemTmp.itemImgLink = `/img/item/${item.image.full}`;
-        itemTmp.wikiLink = `https://leagueoflegends.fandom.com/wiki/${item.name.replace(/\s+/g, '_').replace(/'/g, '%27')}`;
-
-        cat = itemsStatistics.find(o => o.cat === itemTmp.categoryName)
-        if (!cat) {
-            const s = itemsStatistics.push({ cat: itemTmp.categoryName });
-            cat = itemsStatistics[s - 1];
-        }
-        if (cat.itemList)
-            cat.itemList.push(itemTmp);
+        if (!cat) cat = itemsStatistics[itemsStatistics.push({ cat: itemTmp.categoryName }) - 1];
+        if (cat.itemList) cat.itemList.push(itemTmp);
         else cat.itemList = [itemTmp];
     }
     saveData(itemsStatistics);

@@ -55,7 +55,7 @@ app.get('/', (req, res) => {
                 res.render('index', {
                     title: 'Home',
                     patch: response.data[0],
-                    itemStats: helper.importItemStats(),
+                    lastStats: helper.importJSONStats('item_stats'),
                     bg: helper.getRandomBG()
                 });
             }
