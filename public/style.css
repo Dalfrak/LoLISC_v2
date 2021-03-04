@@ -45,6 +45,13 @@ body {
 	position: fixed;
 	padding: 0.5em;
 	color: #ffe2adad;
+	text-align: left;
+}
+
+#informations a {
+	color: rgb(16, 202, 203);
+	text-decoration: none;
+	cursor: pointer;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
